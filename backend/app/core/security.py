@@ -1,5 +1,6 @@
 from passlib.context import CryptContext
 
+from jose import JWTError
 from jose import jwt
 from datetime import datetime
 from datetime import timedelta
@@ -39,3 +40,23 @@ def create_access_token(data: dict):
         settings.SECRET_KEY,
         algorithm=settings.ALGORITHM
     )
+
+
+def verify_access_token(token: str):
+    try:
+        payload = jwt.decode(
+            token,
+            settings.SECRET_KEY,
+            algorithms=[settings.ALGORITHM]
+        )
+
+        user_id = payload.get("sub")
+
+        if user_id is None:
+            return None
+
+        return int(user_id)
+
+    except JWTError:
+        return None
+    
