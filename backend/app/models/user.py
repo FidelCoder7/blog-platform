@@ -2,6 +2,7 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import DateTime
+from sqlalchemy.orm import relationship
 
 from datetime import datetime
 
@@ -38,3 +39,9 @@ class User(Base):
         DateTime,
         default=datetime.utcnow
     )
+
+    posts = relationship(
+    "Post",
+    back_populates="author",
+    cascade="all, delete"
+)
