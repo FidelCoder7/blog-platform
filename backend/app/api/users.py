@@ -24,3 +24,15 @@ def get_me(
     )
 ):
     return current_user
+
+
+@router.get("/protected")
+def protected_route(
+    current_user: User = Depends(
+        get_current_user
+    )
+):
+    return {
+        "message": "Access granted",
+        "user": current_user.username
+    }

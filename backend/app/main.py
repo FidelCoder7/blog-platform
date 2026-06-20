@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from app.api.auth import router as auth_router
 from app.api.users import router as users_router
 from app.api.posts import router as posts_router
+from app.api.comments import router as comments_router
+
 
 app = FastAPI(
     title="Blog Platform API",
@@ -11,6 +13,8 @@ app = FastAPI(
 app.include_router(auth_router)
 app.include_router(users_router)
 app.include_router(posts_router)
+app.include_router(comments_router)
+
 
 @app.get("/")
 def root():
