@@ -77,3 +77,13 @@ button {
 
   margin-bottom: 20px;
 }
+
+textarea {
+  min-height: 150px;
+
+  padding: 12px;
+
+  border-radius: 8px;
+
+  border: none;
+}

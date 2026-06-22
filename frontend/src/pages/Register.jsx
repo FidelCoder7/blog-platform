@@ -21,16 +21,25 @@ function Register() {
     e.preventDefault();
 
     try {
-      await api.post(
+      const response = await api.post(
         "/auth/register",
         formData
       );
 
+      console.log(response.data);
+
+
       alert(
         "Registration successful"
       );
-    } catch {
+    } catch (error) {
+      console.log(error);
+
+      console.log(error.response);
+
+
       alert(
+         error.response?.data?.detail ||
         "Registration failed"
       );
     }
