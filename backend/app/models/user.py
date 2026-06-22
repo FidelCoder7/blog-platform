@@ -49,5 +49,5 @@ class User(Base):
     comments = relationship(
     "Comment",
     back_populates="author",
-    cascade="all, delete"
+    
 )

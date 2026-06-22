@@ -87,3 +87,20 @@ textarea {
 
   border: none;
 }
+
+
+.post-details {
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+.comments {
+  margin-top: 40px;
+}
+
+.comment {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}

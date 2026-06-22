@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
 import CreatePost from "./pages/CreatePost";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PostDetails from "./pages/PostDetails";
 
 function App() {
   return (
@@ -38,6 +39,13 @@ function App() {
             <ProtectedRoute>
               <CreatePost />
             </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/posts/:id"
+          element={
+            <PostDetails />
           }
         />
 

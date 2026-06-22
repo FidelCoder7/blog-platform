@@ -57,3 +57,7 @@ class Comment(Base):
         "Post",
         back_populates="comments"
     )
+
+    @property
+    def author_username(self):
+        return self.author.username

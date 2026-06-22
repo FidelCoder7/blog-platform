@@ -16,6 +16,7 @@ class CommentResponse(BaseModel):
     author_id: int
     post_id: int
     created_at: datetime
+    author_username: str
 
     class Config:
         from_attributes = True
