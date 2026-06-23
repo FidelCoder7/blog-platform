@@ -7,6 +7,38 @@ import CommentSection from "../components/CommentSection";
 function PostDetails() {
   const { id } = useParams();
 
+  const currentUserId =
+  Number(
+    localStorage.getItem(
+      "user_id"
+    )
+  );
+
+  const deletePost =
+  async () => {
+
+  try {
+
+    await api.delete(
+      `/posts/${id}`
+    );
+
+    alert(
+      "Post deleted"
+    );
+
+    window.location.href = "/";
+
+  } catch (error) {
+
+    console.log(error);
+
+    alert(
+      "Failed to delete post"
+    );
+  }
+};
+
   const [post, setPost] = useState(null);
 
   useEffect(() => {
@@ -47,6 +79,16 @@ function PostDetails() {
             post.created_at
           ).toLocaleString()}
         </p>
+
+        {
+          post.author_id === currentUserId && (
+            <button
+              onClick={deletePost}
+            >
+              Delete Post
+            </button>
+          )
+        }
 
     </div>
   );

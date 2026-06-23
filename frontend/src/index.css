@@ -104,3 +104,12 @@ textarea {
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
+.owner-actions {
+  margin-top: 10px;
+}
+
+.owner-actions button {
+  margin-right: 10px;
+}
+

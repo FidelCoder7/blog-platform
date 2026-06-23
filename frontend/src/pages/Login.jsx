@@ -46,10 +46,23 @@ function Login() {
             },
           }
         );
-
       login(
+        localStorage.setItem(
+        "token",
+                
         response.data.access_token
-      );
+        )
+        );
+
+        localStorage.setItem(
+          "user_id",
+          response.data.user_id
+        );
+
+        localStorage.setItem(
+          "username",
+          response.data.username
+        );
 
       navigate("/");
     } catch {

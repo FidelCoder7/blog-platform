@@ -9,6 +9,13 @@ function CommentSection({ postId }) {
   const [comments, setComments] =
     useState([]);
 
+  const currentUserId =
+    Number(
+      localStorage.getItem(
+        "user_id"
+      )
+    );
+
   const [content, setContent] =
     useState("");
 
@@ -61,6 +68,27 @@ function CommentSection({ postId }) {
     }
   };
 
+
+  const deleteComment =
+  async (commentId) => {
+
+  try {
+
+    await api.delete(
+      `/comments/${commentId}`
+    );
+
+    loadComments();
+
+  } catch (error) {
+
+    console.log(error);
+
+    alert(
+      "Failed to delete comment"
+    );
+  }
+};
   return (
     <div className="comments">
 
@@ -69,7 +97,10 @@ function CommentSection({ postId }) {
       </h2>
 
       {comments.map(
+      
         (comment) => (
+          
+  
            <div
               key={comment.id}
               className="comment"
@@ -85,7 +116,25 @@ function CommentSection({ postId }) {
                 </p>
 
               <p>
-                {comment.content}
+                {
+                 
+                  comment.author_id === currentUserId && (
+                    <div className="owner-actions">
+
+                      <button
+                        onClick={() =>
+                          deleteComment(
+                            comment.id
+                          )
+                        }
+                      >
+                        Delete
+                      </button>
+
+                    </div>
+                  )
+                }
+                
               </p>
             </div>     
           
