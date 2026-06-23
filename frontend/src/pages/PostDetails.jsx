@@ -36,6 +36,18 @@ function PostDetails() {
         postId={id}
       />
 
+      <h1>{post.title}</h1>
+
+        <p>
+          By {post.author_username}
+        </p>
+
+        <p>
+          {new Date(
+            post.created_at
+          ).toLocaleString()}
+        </p>
+
     </div>
   );
 }

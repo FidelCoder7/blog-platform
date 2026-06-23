@@ -7,17 +7,23 @@ function PostCard({ post }) {
     >
       <div className="post-card">
 
-        <h3>
-          {post.title}
-        </h3>
+        <h3>{post.title}</h3>
 
-        <p>
-          {post.content.slice(
-            0,
-            150
-          )}
-          ...
-        </p>
+<small>
+  By {post.author_username}
+</small>
+
+<br />
+
+<small>
+  {new Date(
+    post.created_at
+  ).toLocaleDateString()}
+</small>
+
+<p>
+  {post.content.slice(0,150)}
+</p>
 
         
 

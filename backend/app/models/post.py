@@ -57,5 +57,10 @@ class Post(Base):
     "Comment",
     back_populates="post",
     cascade="all, delete"
-)
+    )
+    
+    @property
+    def author_username(self):
+     return self.author.username
+
     

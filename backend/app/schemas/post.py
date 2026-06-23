@@ -17,6 +17,7 @@ class PostResponse(BaseModel):
     title: str
     content: str
     author_id: int
+    author_username: str
     created_at: datetime
 
     class Config:

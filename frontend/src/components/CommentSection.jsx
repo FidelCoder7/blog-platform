@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import api from "../api/axios";
 
+
+
 function CommentSection({ postId }) {
   const [comments, setComments] =
     useState([]);
@@ -76,6 +78,12 @@ function CommentSection({ postId }) {
                 {comment.author_username}
               </strong>
 
+               <p>
+                  {new Date(
+                    comment.created_at
+                  ).toLocaleString()}
+                </p>
+
               <p>
                 {comment.content}
               </p>
@@ -107,6 +115,8 @@ function CommentSection({ postId }) {
 
     </div>
   );
+
+
 }
 
 export default CommentSection;
