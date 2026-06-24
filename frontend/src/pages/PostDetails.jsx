@@ -40,6 +40,17 @@ function PostDetails() {
 };
 
   const [post, setPost] = useState(null);
+  const [editing,
+  setEditing] =
+  useState(false);
+
+  const [title,
+    setTitle] =
+    useState("");
+
+  const [content,
+    setContent] =
+    useState("");
 
   useEffect(() => {
     loadPost();
@@ -51,44 +62,152 @@ function PostDetails() {
     );
 
     setPost(response.data);
+    setTitle(
+      response.data.title
+    );
+
+    setContent(
+      response.data.content
+    );
   };
 
   if (!post) {
     return <h2>Loading...</h2>;
   }
+  
+  const updatePost =
+    async () => {
 
+    try {
+
+      await api.put(
+        `/posts/${id}`,
+        {
+          title,
+          content
+        }
+      );
+
+      setEditing(false);
+
+      loadPost();
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert(
+        "Failed to update post"
+      );
+    }
+  };
   return (
     <div className="post-details">
 
-      <h1>{post.title}</h1>
+      <h1>{
+            editing ? (
 
-      <p>{post.content}</p>
+              <input
+                value={title}
+                onChange={(e) =>
+                  setTitle(
+                    e.target.value
+                  )
+                }
+              />
 
+            ) : (
+
+              <h1>
+                {post.title}
+              </h1>
+
+            )
+          }
+        </h1>
+
+      <p>
+        By {post.author_username}
+      </p>
+
+      <p>
+        {new Date(
+          post.created_at
+        ).toLocaleString()}
+      </p>
+
+      <p>
+        {
+          editing ? (
+
+            <textarea
+              value={content}
+              onChange={(e) =>
+                setContent(
+                  e.target.value
+                )
+              }
+            />
+
+          ) : (
+
+            <p>
+              {post.content}
+            </p>
+
+          )
+        }
+      </p>
+
+      {
+        post.author_id ===
+        currentUserId && (
+
+          <div
+            className="owner-actions"
+          >
+
+            {
+              editing ? (
+
+                <button
+                  onClick={
+                    updatePost
+                  }
+                >
+                  Save
+                </button>
+
+              ) : (
+
+                <button
+                  onClick={() =>
+                    setEditing(
+                      true
+                    )
+                  }
+                >
+                  Edit
+                </button>
+
+              )
+            }
+
+            <button
+              onClick={
+                deletePost
+              }
+            >
+              Delete
+            </button>
+
+          </div>
+
+        )
+      }
       <CommentSection
         postId={id}
       />
-
-      <h1>{post.title}</h1>
-
-        <p>
-          By {post.author_username}
-        </p>
-
-        <p>
-          {new Date(
-            post.created_at
-          ).toLocaleString()}
-        </p>
-
-        {
-          post.author_id === currentUserId && (
-            <button
-              onClick={deletePost}
-            >
-              Delete Post
-            </button>
-          )
-        }
 
     </div>
   );

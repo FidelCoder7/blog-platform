@@ -3,11 +3,20 @@ import { useState } from "react";
 
 import api from "../api/axios";
 
-
-
 function CommentSection({ postId }) {
   const [comments, setComments] =
     useState([]);
+
+  const [content, setContent] =
+    useState("");
+
+  const [editingCommentId,
+    setEditingCommentId] =
+    useState(null);
+
+  const [editContent,
+    setEditContent] =
+    useState("");
 
   const currentUserId =
     Number(
@@ -15,9 +24,6 @@ function CommentSection({ postId }) {
         "user_id"
       )
     );
-
-  const [content, setContent] =
-    useState("");
 
   useEffect(() => {
     loadComments();
@@ -27,13 +33,13 @@ function CommentSection({ postId }) {
     try {
       const response =
         await api.get(
-          `/comments/posts/${postId}`,
-          
+          `/comments/posts/${postId}`
         );
 
       setComments(
         response.data
       );
+
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +53,6 @@ function CommentSection({ postId }) {
         `/comments/posts/${postId}`,
         {
           content
-          
         }
       );
 
@@ -56,9 +61,12 @@ function CommentSection({ postId }) {
       loadComments();
 
     } catch (error) {
+
       console.log(error);
 
-      console.log(error.response);
+      console.log(
+        error.response
+      );
 
       alert(
         JSON.stringify(
@@ -68,27 +76,82 @@ function CommentSection({ postId }) {
     }
   };
 
-
   const deleteComment =
-  async (commentId) => {
+    async (commentId) => {
 
-  try {
+      try {
 
-    await api.delete(
-      `/comments/${commentId}`
-    );
+        await api.delete(
+          `/comments/${commentId}`
+        );
 
-    loadComments();
+        loadComments();
 
-  } catch (error) {
+      } catch (error) {
 
-    console.log(error);
+        console.log(error);
 
-    alert(
-      "Failed to delete comment"
-    );
-  }
-};
+        console.log(
+          error.response?.data
+        );
+
+        alert(
+          JSON.stringify(
+            error.response?.data
+          )
+        );
+      }
+    };
+
+  const startEdit =
+    (comment) => {
+
+      setEditingCommentId(
+        comment.id
+      );
+
+      setEditContent(
+        comment.content
+      );
+    };
+
+  const saveEdit =
+    async () => {
+
+      try {
+
+        await api.put(
+          `/comments/${editingCommentId}`,
+          {
+            content:
+              editContent
+          }
+        );
+
+        setEditingCommentId(
+          null
+        );
+
+        setEditContent("");
+
+        loadComments();
+
+      } catch (error) {
+
+        console.log(error);
+
+        console.log(
+          error.response?.data
+        );
+
+        alert(
+          JSON.stringify(
+            error.response?.data
+          )
+        );
+      }
+    };
+
   return (
     <div className="comments">
 
@@ -97,53 +160,111 @@ function CommentSection({ postId }) {
       </h2>
 
       {comments.map(
-      
         (comment) => (
-          
-  
-           <div
-              key={comment.id}
-              className="comment"
-            >
-              <strong>
-                {comment.author_username}
-              </strong>
 
-               <p>
-                  {new Date(
-                    comment.created_at
-                  ).toLocaleString()}
+          <div
+            key={comment.id}
+            className="comment"
+          >
+
+            <strong>
+              {
+                comment.author_username
+              }
+            </strong>
+
+            <p>
+              {new Date(
+                comment.created_at
+              ).toLocaleString()}
+            </p>
+
+            {
+              editingCommentId ===
+              comment.id ? (
+
+                <textarea
+                  value={
+                    editContent
+                  }
+                  onChange={(e) =>
+                    setEditContent(
+                      e.target.value
+                    )
+                  }
+                />
+
+              ) : (
+
+                <p>
+                  {
+                    comment.content
+                  }
                 </p>
 
-              <p>
-                {
-                 
-                  comment.author_id === currentUserId && (
-                    <div className="owner-actions">
+              )
+            }
+
+            {
+              comment.author_id ===
+              currentUserId && (
+
+                <div
+                  className="owner-actions"
+                >
+
+                  {
+                    editingCommentId ===
+                    comment.id ? (
+
+                      <button
+                        onClick={
+                          saveEdit
+                        }
+                      >
+                        Save
+                      </button>
+
+                    ) : (
 
                       <button
                         onClick={() =>
-                          deleteComment(
-                            comment.id
+                          startEdit(
+                            comment
                           )
                         }
                       >
-                        Delete
+                        Edit
                       </button>
 
-                    </div>
-                  )
-                }
-                
-              </p>
-            </div>     
-          
+                    )
+                  }
+
+                  <button
+                    onClick={() =>
+                      deleteComment(
+                        comment.id
+                      )
+                    }
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
+              )
+            }
+
+          </div>
         )
       )}
 
       <form
-        onSubmit={createComment}
+        onSubmit={
+          createComment
+        }
       >
+
         <textarea
           value={content}
           onChange={(e) =>
@@ -164,8 +285,6 @@ function CommentSection({ postId }) {
 
     </div>
   );
-
-
 }
 
 export default CommentSection;

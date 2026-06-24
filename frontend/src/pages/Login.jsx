@@ -46,26 +46,32 @@ function Login() {
             },
           }
         );
-      login(
-        localStorage.setItem(
+
+      const token =
+        response.data.access_token;
+
+      localStorage.setItem(
         "token",
-                
-        response.data.access_token
-        )
-        );
+        token
+      );
 
-        localStorage.setItem(
-          "user_id",
-          response.data.user_id
-        );
+      localStorage.setItem(
+        "user_id",
+        response.data.user_id
+      );
 
-        localStorage.setItem(
-          "username",
-          response.data.username
-        );
+      localStorage.setItem(
+        "username",
+        response.data.username
+      );
+
+      login(token);
 
       navigate("/");
-    } catch {
+
+    } catch (error) {
+      console.log(error);
+
       alert("Login failed");
     }
   };
@@ -76,11 +82,15 @@ function Login() {
         <h2>Login</h2>
 
         <input
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) =>
-            setEmail(e.target.value)
+            setEmail(
+              e.target.value
+            )
           }
+          required
         />
 
         <input
@@ -92,11 +102,15 @@ function Login() {
               e.target.value
             )
           }
+          required
         />
 
-        <button type="submit">
+        <button
+          type="submit"
+        >
           Login
         </button>
+
       </form>
     </div>
   );
