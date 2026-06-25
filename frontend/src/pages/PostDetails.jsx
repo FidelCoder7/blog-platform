@@ -132,8 +132,14 @@ function PostDetails() {
 
       <p>
         {new Date(
-          post.created_at
-        ).toLocaleString()}
+          post.created_at + "Z"
+        ).toLocaleString( "en-KE",
+  {
+    dateStyle: "medium",
+    timeStyle: "short"
+  }
+)}
+         
       </p>
 
       <p>

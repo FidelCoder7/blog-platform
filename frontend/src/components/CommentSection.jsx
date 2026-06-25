@@ -175,7 +175,7 @@ function CommentSection({ postId }) {
 
             <p>
               {new Date(
-                comment.created_at
+                comment.created_at + "Z"
               ).toLocaleString()}
             </p>
 

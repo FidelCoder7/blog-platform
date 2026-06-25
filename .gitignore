@@ -2,6 +2,7 @@
 backend/venv/
 __pycache__/
 *.pyc
+.pytest_cache
 
 # Environment
 .env
@@ -22,3 +23,7 @@ htmlcov/
 # IDE
 .vscode/
 .idea/
+
+.DS_Store
+Thumbs.db
+
