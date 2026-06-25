@@ -3,19 +3,20 @@ from tests.conftest import client
 
 def get_token():
 
-    response = client.post(
+    login = client.post(
         "/auth/login",
         data={
             "username":
-                "test5@example.com",
+                "test@example.com",
             "password":
                 "password123"
         }
     )
 
-    return response.json()[
+    return login.json()[
         "access_token"
     ]
+
 
 def test_create_post():
 
@@ -25,9 +26,9 @@ def test_create_post():
         "/posts/",
         json={
             "title":
-                "Test Post",
+                "Testing Post",
             "content":
-                "Testing"
+                "Testing Content"
         },
         headers={
             "Authorization":
@@ -37,11 +38,12 @@ def test_create_post():
 
     assert response.status_code == 200
 
-    def test_get_posts():
 
-        response = client.get(
-            "/posts/"
-        )
+def test_get_posts():
 
-        assert response.status_code == 200
-        
+    response = client.get(
+        "/posts/"
+    )
+
+    assert response.status_code == 200
+    

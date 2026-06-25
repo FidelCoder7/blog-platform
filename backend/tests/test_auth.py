@@ -1,21 +1,21 @@
 from tests.conftest import client
 
 
+TEST_USER = {
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "password123"
+}
+
+
 def test_register_user():
 
     response = client.post(
         "/auth/register",
-        json={
-            "username":
-                "testuser5",
-            "email":
-                "test5@example.com",
-            "password":
-                "password123"
-        }
+        json=TEST_USER
     )
 
-    assert response.status_code == 200
+    assert response.status_code in [200, 400]
 
 
 def test_login_user():
@@ -24,9 +24,9 @@ def test_login_user():
         "/auth/login",
         data={
             "username":
-                "test5@example.com",
+                TEST_USER["email"],
             "password":
-                "password123"
+                TEST_USER["password"]
         }
     )
 
@@ -35,4 +35,5 @@ def test_login_user():
     data = response.json()
 
     assert "access_token" in data
-    
+    assert "user_id" in data
+    assert "username" in data

@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker
 from fastapi.testclient import TestClient
 
 from app.main import app
-
 from app.database.database import Base
 from app.core.dependencies import get_db
 
@@ -26,19 +25,16 @@ TestingSessionLocal = sessionmaker(
     bind=engine
 )
 
-
 Base.metadata.create_all(
     bind=engine
 )
 
 
 def override_get_db():
-
     db = TestingSessionLocal()
 
     try:
         yield db
-
     finally:
         db.close()
 
@@ -46,6 +42,5 @@ def override_get_db():
 app.dependency_overrides[
     get_db
 ] = override_get_db
-
 
 client = TestClient(app)
