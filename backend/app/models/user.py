@@ -4,7 +4,7 @@ from sqlalchemy import String
 from sqlalchemy import DateTime
 from sqlalchemy.orm import relationship
 
-from datetime import datetime
+from datetime import datetime, UTC
 
 from app.database.database import Base
 
@@ -37,7 +37,7 @@ class User(Base):
 
     created_at = Column(
         DateTime,
-        default=datetime.utcnow
+        default=datetime.now(UTC)
     )
 
     posts = relationship(

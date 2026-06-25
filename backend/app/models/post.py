@@ -7,7 +7,7 @@ from sqlalchemy import ForeignKey
 
 from sqlalchemy.orm import relationship
 
-from datetime import datetime
+from datetime import datetime, UTC
 
 from app.database.database import Base
 
@@ -39,13 +39,13 @@ class Post(Base):
 
     created_at = Column(
         DateTime,
-        default=datetime.utcnow
+        default=datetime.now(UTC)
     )
 
     updated_at = Column(
         DateTime,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow
+        default=datetime.now(UTC),
+        onupdate=datetime.now(UTC)
     )
 
     author = relationship(

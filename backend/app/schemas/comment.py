@@ -1,5 +1,10 @@
 from pydantic import BaseModel
 from datetime import datetime
+from pydantic import ConfigDict
+
+model_config = ConfigDict(
+    from_attributes=True
+)
 
 
 class CommentCreate(BaseModel):
@@ -18,5 +23,3 @@ class CommentResponse(BaseModel):
     created_at: datetime
     author_username: str
 
-    class Config:
-        from_attributes = True

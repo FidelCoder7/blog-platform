@@ -2,7 +2,7 @@ from passlib.context import CryptContext
 
 from jose import JWTError
 from jose import jwt
-from datetime import datetime
+from datetime import datetime, UTC
 from datetime import timedelta
 
 from app.core.config import settings
@@ -29,7 +29,7 @@ def verify_password(
 def create_access_token(data: dict):
     to_encode = data.copy()
 
-    expire = datetime.utcnow() + timedelta(
+    expire = datetime.now(UTC) + timedelta(
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
 

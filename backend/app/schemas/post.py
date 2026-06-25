@@ -1,5 +1,10 @@
 from pydantic import BaseModel
 from datetime import datetime
+from pydantic import ConfigDict
+
+model_config = ConfigDict(
+    from_attributes=True
+)
 
 
 class PostCreate(BaseModel):
@@ -20,5 +25,3 @@ class PostResponse(BaseModel):
     author_username: str
     created_at: datetime
 
-    class Config:
-        from_attributes = True
