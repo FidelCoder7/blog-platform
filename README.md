@@ -1,24 +1,50 @@
 # Blog Platform
 
+![Python](https://img.shields.io/badge/Python-3.13-blue)
+
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+
+![React](https://img.shields.io/badge/React-Frontend-61DAFB)
+
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
+![Tests](https://github.com/FidelCoder7/blog-platform/actions/workflows/backend-tests.yml/badge.svg)
+
 A full-stack blogging platform built with FastAPI and React.
 Users can register, authenticate using JWT tokens, create blog posts, comment on posts, and manage their own content through role-based ownership controls.
 
 
 ## Features
 
-* User Registration
-* User Authentication (JWT)
-* Create Posts
-* Edit Posts
-* Delete Posts
-* Create Comments
-* Edit Comments
-* Delete Comments
-* Ownership Authorization
-* REST API
-* Automated Testing
-* SQLite Database
-* Alembic Migrations
+### Authentication
+
+User registration
+- User login
+- JWT authentication
+- Password hashing with bcrypt
+- Protected routes
+
+### Blog Posts
+
+- Create posts
+- View all posts
+- View single post
+- Delete own posts
+
+### Comments
+
+- Add comments
+- View comments
+- Delete own comments
+- Display comment authors
+- Display timestamps
+
+### User Features
+
+- User profile endpoint
+- Author information on posts
+- Author information on comments
+
 
 ## Tech Stack
 
@@ -27,6 +53,8 @@ Users can register, authenticate using JWT tokens, create blog posts, comment on
 * Python
 * FastAPI
 * SQLAlchemy
+* Passlib
+* Pydantic
 * Alembic
 * SQLite
 * JWT Authentication
@@ -38,6 +66,166 @@ Users can register, authenticate using JWT tokens, create blog posts, comment on
 * Vite
 * Axios
 * React Router
+
+### DEvOps
+
+* Git
+* GitHub
+* GitHub Actions CI
+
+## Project Structure
+
+```text
+blog-platform
+|
+|-backend/
+|   |-app/
+|   |-alembic/
+|   |-tests/
+|   |-requirements.txt
+|   |-.env.example
+|
+|- frontend/
+|   |- src/
+|   |- public/
+|   |- package.json
+|
+|- screenshots/
+|
+|- .github
+|   ⨽ workflows
+|
+⨽README.md
+```
+
+## Architecture
+
+```
+React Frontend
+        |
+        ↓ Axios
+Fast REST API
+        |
+        ↓
+Aunthentication (JWT)
+        |
+        ↓
+SQLAlchemy ORM
+        |
+        ↓
+SQLite Database
+```
+
+## API Endpoints
+
+### Authentication
+
+POST /auth/register
+
+POST /auth/login
+
+### Posts
+
+GET /posts
+
+GET /posts/{id}
+
+POST /posts
+
+PUT /posts/{id}
+
+DELETE /posts/{id}
+
+### Comments
+
+GET /comments/posts/{post_id}
+
+POST /comments/posts/{post_id}
+
+PUT /comments/{comment_id}
+
+DELETE /comments/{comment_id}
+
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/FidelCoder7/blog-platform.git
+```
+
+### Backend
+
+```bash
+cd backend
+
+python -m venv venv
+```
+
+Activate  virtual environment
+
+Windows
+
+```bash
+venv\Scripts\activate
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Create environment file
+
+```bash
+cp .env.example .env
+```
+
+Run migrations
+
+```bash
+alembic upgrade head
+```
+
+Start backend
+
+```bash
+uvicorn app.main:app --reload
+```
+
+### Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+### Tests
+
+```bash
+pytest -v
+```
+
+### Coverage
+
+```bash
+pytest --coverage=app
+```
+
+## GitHub Actions
+
+This project includes an automated CI pipeline.
+
+Every push automatically:
+
+- Installs dependencies
+- Runs all tests
+- Reports test status
+
 
 ## Screenshots
 
@@ -67,77 +255,49 @@ Users can register, authenticate using JWT tokens, create blog posts, comment on
 ![Swagger Documentation](screenshots/swagger-api-2.png)
 
 
-## Installation
-
-### Backend
-
-```bash
-cd backend
-
-python -m venv venv
-
-pip install -r requirements.txt
-
-copy .env.example .env
-
-alembic upgrade head
-
-uvicorn app.main:app --reload
-```
-
-### Frontend
-
-```bash
-cd frontend
-
-npm install
-
-npm run dev
-```
-### Tests
-
-```bash
-pytest -v
-```
-### Coverage
-
-```bash
-pytest --coverage=app
-```
-
-## API Endpoints
-
-### Authentication
-
-POST /auth/register
-POST /auth/login
-
-### Posts
-
-GET /posts
-GET /posts/{id}
-POST /posts
-PUT /posts/{id}
-DELETE /posts/{id}
-
-### Comments
-
-GET /comments/posts/{post_id}
-POST /comments/posts/{post_id}
-PUT /comments/{comment_id}
-DELETE /comments/{comment_id}
-
 ## Future Improvements
+- Rich text editor
+- Image uploads
+- User avatars
+- Likes and reactions
+- Categories
+- Search functionality
+- Pagination
+- Email verification
+- Password reset
+- User profile editing
+- Docker support
+- PostgreSQL deployment
+- Cloud deployment
+- Role-based authorization
 
-* User Profiles
-* Post Categories
-* Rich Text Editor
-* Image Uploads
-* Search Functionality
-* Pagination
-* Docker Support
-* PostgreSQL Deployment
+## Testing
+
+Current automated tests cover:
+
+- User registration
+- User login
+- JWT authentication
+- Post creation
+- Post retrieval
+- Comment creation
+- Comment retrieval
+
+## Learning Outcomes
+
+This project demonstrates experience with:
+
+- REST API development
+- Authentication using JWT
+- SQLAlchemy ORM
+- Alembic database migrations
+- React frontend development
+- API integration using Axios
+- Protected routes
+- CRUD operations
+- Automated testing with Pytest
+- Continuous Integration using GitHub Actions
 
 ## License
 
-MIT
+MIT License
