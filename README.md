@@ -41,21 +41,31 @@ Users can register, authenticate using JWT tokens, create blog posts, comment on
 
 ## Screenshots
 
-### Homepage
+### Home page
 
 ![Homepage](screenshots/homepage.png)
 
-### Login
+### Login page
 
 ![Login](screenshots/login.png)
 
-### Register
+### Register page
 
 ![Register](screenshots/register.png)
 
-### Post Details
+### Post Details page
 
 ![Post Details](screenshots/post-details.png)
+
+### Create Post page
+
+![Create post ](screenshots/create-post.png)
+
+### Swagger Documentation
+
+![Swagger Documentation](screenshots/swagger-api.png)
+![Swagger Documentation](screenshots/swagger-api-2.png)
+
 
 ## Installation
 
