@@ -41,11 +41,19 @@ Users can register, authenticate using JWT tokens, create blog posts, comment on
 
 ## Screenshots
 
+### Homepage
+
 ![Homepage](screenshots/homepage.png)
+
+### Login
 
 ![Login](screenshots/login.png)
 
+### Register
+
 ![Register](screenshots/register.png)
+
+### Post Details
 
 ![Post Details](screenshots/post-details.png)
 
