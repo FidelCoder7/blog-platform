@@ -3,6 +3,7 @@
 A full-stack blogging platform built with FastAPI and React.
 Users can register, authenticate using JWT tokens, create blog posts, comment on posts, and manage their own content through role-based ownership controls.
 
+
 ## Features
 
 * User Registration
